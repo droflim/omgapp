@@ -8,33 +8,36 @@
         </a>
     </div>
     <br>
+    
     <div class="container">
         <h2>Inventario</h2>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="buscar producto.." title="Type in a name">
+        <table class="table" style="background-color: white !important; border-radius: 5px;" id="myTable">
 
-        <table class="table" style="background-color: white !important; border-radius: 5px;">
-
-            <thead>
-           
-                <th scope="col">Material</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">ACCIÓN</th>
-            </thead>
-            <tbody>
+            <tr class="header">
+          
+                <th scope="col" >MATERIAL</th>
+                <th scope="col" >CANTIDAD</th>
+                <th scope="col" >PRECIO</th>
+                <th scope="col" >FECHA</th>
+                <th scope="col" >SECCION DE EDICION</th>
+                
+            </th>
+    
                 <div>
                     <% if (arrayClientes.length>0) { %>
                         <% arrayClientes.forEach( inventario => { %>
-                       
-                                <th><%= inventario.nombreMaterial %></th>
+                            <br>
+                            <tr>
+                                <td><%= inventario.nombreMaterial %></td>
 
                                
 
-                                <th><%= inventario.Cantidad %></th>
+                                <td><%= inventario.Cantidad %></td>
                                 
-                                <th><%= inventario.Precio %></th>
-                                <th><%= inventario.Fecha %></th>
-                                
+                                <td><%= inventario.Precio %></td>
+                                <td><%= inventario.Fecha %></td>
+                 
                                 <th>
                                     <a class="btn btn-primary btn-sm" href="inventario/verMaterial/<%= inventario.id %>" rol="button">
                                         Modificar Material
@@ -48,7 +51,7 @@
                     <% } %>
                 </div>
 
-            </tbody>
+  
 
         </table>
 
@@ -71,5 +74,34 @@
 
         }
     </script>
-
+       <script>
+        function myFunction() {
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("myInput");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }       
+          }
+        }
+                </script>
+                
+                  
+          
+        <style>
+            th, td {
+          padding: 15px;
+        }
+        </style>
 <%- include("template/footer") %>
+
+
