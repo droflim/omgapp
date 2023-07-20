@@ -1,0 +1,72 @@
+<%- include("template/cabecera", {tituloWeb: 'Página Editar Cliente'}) %>
+
+<div class="container">
+
+    <h1>Editar Material</h1>
+    
+    <form action="editarMaterial" class="my-2" method="POST">
+    
+       
+        <input 
+        type="text"
+        class="form-control my-2"
+        name="nombreMaterial"
+        value="<%= nombreMaterial %>"
+    >
+
+    <input 
+    id="cantidad"
+    type="text"
+    class="form-control my-2"
+    name="Cantidad"
+    placeholder="Ingresar nueva cantidad aqui"
+    type="hidden"
+    value="<%= Cantidad %>  "
+   
+>
+
+
+    <input 
+        type="text"
+        placeholder="Ingrese Precio solo si este vario"
+        class="form-control my-2"
+        name="Precio"
+        value="<%= Precio %>"
+    >
+
+    Fecha Automatica modificacion
+    <input id="date" name="Fecha">
+
+    
+        <button
+            type="submit"
+            class="btn btn-dark btn-block"
+            class="boton"
+            id="botones"
+        >
+            Modificar Material
+        </button>
+
+        <input
+            type="hidden"
+            name="id"
+            value="<%= id %>"
+        >
+
+        
+    
+    </form>
+
+  </div>
+
+  <script type="text/javascript">
+  
+    var fecha = new Date();
+var options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+    document.getElementById('date').value = fecha.toLocaleDateString("es-ES", options)
+
+  </script>
+  
+
+<%- include("template/footer") %>

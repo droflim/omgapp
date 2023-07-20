@@ -1,0 +1,75 @@
+<%- include("template/cabecera", {tituloWeb: 'Página de Inicio Cliente'})  %> 
+
+    <div class="container">
+        <h1 >Inventario Bodega</h1>
+        <hr>
+        <a class="btn btn-primary" href="/inventario/agregarMaterial" ROLE="button">
+            Ingresar nueva Material
+        </a>
+    </div>
+    <br>
+    <div class="container">
+        <h2>Inventario</h2>
+
+        <table class="table" style="background-color: white !important; border-radius: 5px;">
+
+            <thead>
+           
+                <th scope="col">Material</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">ACCIÓN</th>
+            </thead>
+            <tbody>
+                <div>
+                    <% if (arrayClientes.length>0) { %>
+                        <% arrayClientes.forEach( inventario => { %>
+                       
+                                <th><%= inventario.nombreMaterial %></th>
+
+                               
+
+                                <th><%= inventario.Cantidad %></th>
+                                
+                                <th><%= inventario.Precio %></th>
+                                <th><%= inventario.Fecha %></th>
+                                
+                                <th>
+                                    <a class="btn btn-primary btn-sm" href="inventario/verMaterial/<%= inventario.id %>" rol="button">
+                                        Modificar Material
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" href="javascript:eliminar('<%= inventario.id %>');" rol="button">
+                                        Eliminar Material
+                                    </a>
+                                </th>
+                            </tr>
+                        <% }) %>
+                    <% } %>
+                </div>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <script>
+        async function eliminar(paramID) {
+
+            try {
+                
+                const data = await fetch(`/inventario/${paramID}`, {
+                    method: 'delete'
+                });
+
+                window.location.href = '/inventario';
+
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+    </script>
+
+<%- include("template/footer") %>

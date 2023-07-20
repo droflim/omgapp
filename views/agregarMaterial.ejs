@@ -1,0 +1,51 @@
+<%- include("template/cabecera", {tituloWeb: 'Página Crear Nuevo Cliente'}) %>
+
+<div class="container">
+
+    <h1>Ingreso de Materiales</h1>
+    
+    <form action="agregarMaterial" class="my-2" method="POST">
+    
+        <input 
+            type="text"
+            placeholder="Ingrese nombre de Material"
+            class="form-control my-2"
+            name="nombreMaterial"
+        >
+    
+        <input 
+            type="number"
+            placeholder="Ingrese Cantidad"
+            class="form-control my-2"
+            name="Cantidad"
+        >
+
+        <input 
+        type="number"
+        placeholder="Ingrese Precio"
+        class="form-control my-2"
+        name="Precio"
+    >
+    Fecha Automatica de ingreso
+    <input id="date" name="Fecha">
+        <button
+            type="submit"
+            class="btn btn-dark btn-block"
+        >
+            Agregar Material
+        </button>
+    
+    </form>
+
+  </div>
+  <script type="text/javascript">
+  
+    var fecha = new Date();
+var options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+    document.getElementById('date').value = fecha.toLocaleDateString("es-ES", options)
+
+  </script>
+
+
+<%- include("template/footer") %>
