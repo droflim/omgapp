@@ -1,18 +1,21 @@
 <%- include("template/cabecera", {tituloWeb: 'Página de Inicio Cliente'})  %> 
 
+<div>
+    <img src="https://omgconstrucciones.cl/wp-content/uploads/2020/03/OMG-1.png" class="logo">
+  </div>
     <div class="container">
-        <h1 >Inventario Bodega</h1>
+        <h1 class="text-center" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Inventario Bodega</h1>
         <hr>
         <a class="btn btn-primary" href="/inventario/agregarMaterial" ROLE="button">
-            Ingresar nueva Material
+            Ingresar nuevo Material
         </a>
     </div>
     <br>
     
     <div class="container">
-        <h2>Inventario</h2>
-        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="buscar producto.." title="Type in a name">
-        <table class="table" style="background-color: white !important; border-radius: 5px;" id="myTable">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar Producto.." title="Type in a name">
+        <div class="container-fluid">
+        <table class="table" style="background-color: white !important; border-radius: 5px; width: 90%;" id="myTable">
 
             <tr class="header">
           
@@ -20,7 +23,7 @@
                 <th scope="col" >CANTIDAD</th>
                 <th scope="col" >PRECIO</th>
                 <th scope="col" >FECHA</th>
-                <th scope="col" >SECCION DE EDICION</th>
+                <th scope="col pro" >SECCION DE EDICION</th>
                 
             </th>
     
@@ -28,14 +31,15 @@
                     <% if (arrayClientes.length>0) { %>
                         <% arrayClientes.forEach( inventario => { %>
                             <br>
-                            <tr>
+                            <tr >
                                 <td><%= inventario.nombreMaterial %></td>
 
-                               
-
+                                <% var i =  inventario.Cantidad   %>
+                              
                                 <td><%= inventario.Cantidad %></td>
-                                
-                                <td><%= inventario.Precio %></td>
+                                  
+                             
+                              <td><%= inventario.Precio %></td>
                                 <td><%= inventario.Fecha %></td>
                  
                                 <th>
@@ -45,17 +49,32 @@
                                     <a class="btn btn-danger btn-sm" href="javascript:eliminar('<%= inventario.id %>');" rol="button">
                                         Eliminar Material
                                     </a>
+                                    
                                 </th>
                             </tr>
                         <% }) %>
+                        
                     <% } %>
                 </div>
 
   
 
         </table>
-
     </div>
+    </div>
+    <script>
+        function Sumar(params) {
+            let boton = document.getElementById("boton")
+            boton.addEventListener("click", function (params) {
+              let cantidad =  " <%= Cantidad %> " 
+              console.log(cantidad)
+            })
+
+        }
+       
+    </script>
+
+
 
     <script>
         async function eliminar(paramID) {
@@ -94,14 +113,32 @@
           }
         }
                 </script>
-                
-                  
-          
-        <style>
-            th, td {
-          padding: 15px;
-        }
-        </style>
+                <style>
+  @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px)
+        {
+
+ tr {
+                    /* Behave  like a "row" */
+                    border: none;
+                    border-bottom: 1px solid #eee;
+                    position: relative;
+                    padding-left: 50% !important; /* Added important here */
+                    width: 50%;
+                }
+
+
+}
+                </style>
+              <style>   
+            td {
+                width: 10% !important;
+            }
+            .logoright {
+  text-align: right !important;
+  top: 40px;
+}
+            </style>
+       
 <%- include("template/footer") %>
 
 

@@ -15,7 +15,8 @@ router.get('/', async (request,response) => {
         const arrayClientesDB =await Inventario.find()
     
         response.render("inventario", {
-            arrayClientes: arrayClientesDB
+            arrayClientes: arrayClientesDB,
+            Cantidad: arrayClientesDB.Cantidad
         })
     } 
     catch (e) {

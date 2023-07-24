@@ -4,7 +4,7 @@
 
     <h1>Editar Material</h1>
     
-    <form action="editarMaterial" class="my-2" method="POST">
+    <form action="editarMaterial" class="my-2" method="POST" id="theform">
     
        
         <input 
@@ -13,18 +13,16 @@
         name="nombreMaterial"
         value="<%= nombreMaterial %>"
     >
-
+   
     <input 
     id="cantidad"
     type="text"
-    class="form-control my-2"
-    name="Cantidad"
+    name="cantidad"
     placeholder="Ingresar nueva cantidad aqui"
-    type="hidden"
-    value="<%= Cantidad %>  "
+
+    
    
 >
-
 
     <input 
         type="text"
@@ -39,15 +37,19 @@
 
     
         <button
-            type="submit"
-            class="btn btn-dark btn-block"
-            class="boton"
-            id="botones"
+        class="btn btn-dark btn-block"
+        class="boton"
+        id="enviar"
+        onclick="Enviar()"
         >
-            Modificar Material
+            eNVIAR
+            
         </button>
+            Modificar Material
+    </input>
 
         <input
+       
             type="hidden"
             name="id"
             value="<%= id %>"
@@ -67,6 +69,17 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     document.getElementById('date').value = fecha.toLocaleDateString("es-ES", options)
 
   </script>
-  
+ <script type="module">
+   
+
+    function Enviar(params) {
+        let cantidad1 = document.getElementById("cantidad").value 
+        let cantidad2 = + "<%= Cantidad %>"
+        console.log(parseInt(cantidad1) + parseInt(cantidad2))
+        return cantidad
+    }
+ </script>
+
 
 <%- include("template/footer") %>
+
