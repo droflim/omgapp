@@ -1,7 +1,7 @@
 <%- include("template/cabecera", {tituloWeb: 'Página de Inicio Cliente'})  %> 
 
 <div>
-    <img src="https://omgconstrucciones.cl/wp-content/uploads/2020/03/OMG-1.png" class="logo">
+   
   </div>
     <div class="container">
         <h1 class="text-center" style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Inventario Bodega</h1>
@@ -15,7 +15,7 @@
     <div class="container">
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar Producto.." title="Type in a name">
         <div class="container-fluid">
-        <table class="table" style="background-color: white !important; border-radius: 5px; width: 50%;" id="myTable">
+        <table class="table" style="background-color: white !important; border-radius: 8px; width: 50%; " id="myTable">
 
             <tr class="header">
           
@@ -43,7 +43,7 @@
                                 <td><%= inventario.Fecha %></td>
                  
                                 <th>
-                                    <a class="btn btn-primary btn-sm" href="inventario/verMaterial/<%= inventario.id %>" rol="button">
+                                    <a class="btn btn-primary btn-sm" href="inventario/verMaterial/<%= inventario.id %>" rol="button" ">
                                         Modificar Material
                                     </a>
                                     <a class="btn btn-danger btn-sm" href="javascript:eliminar('<%= inventario.id %>');" rol="button">
@@ -138,8 +138,23 @@
   top: 40px;
 }
             </style>
+
+            <style>
+                @media screen and (min-device-width: 200px) and (max-device-width: 568px) { 
+   .table {
+    font-size: 7px;
+   }
+
+   .btn-sm {
+    font-size: 7px;
+   }
+}
+            </style>
        
 <%- include("template/footer") %>
+
+
+
 
 
 
