@@ -10,7 +10,7 @@
             Ingresar nuevo Material
         </a>
     </div>
-    <br>
+
     
     <div class="container">
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar Producto.." title="Type in a name">
@@ -30,7 +30,7 @@
                 <div>
                     <% if (arrayClientes.length>0) { %>
                         <% arrayClientes.forEach( inventario => { %>
-                            <br>
+                     
                             <tr >
                                 <td><%= inventario.nombreMaterial %></td>
 
@@ -152,10 +152,5 @@
             </style>
        
 <%- include("template/footer") %>
-
-
-
-
-
 
 
