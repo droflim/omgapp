@@ -53,6 +53,7 @@
             type="hidden"
             name="id"
             value="<%= id %>"
+            onclick="Enviar()"
         >
 
         
@@ -69,16 +70,7 @@ var options = { year: 'numeric', month: 'long', day: 'numeric' };
     document.getElementById('date').value = fecha.toLocaleDateString("es-ES", options)
 
   </script>
- <script type="module">
-   
-
-    function Enviar(params) {
-        let cantidad1 = document.getElementById("cantidad").value 
-        let cantidad2 = + "<%= Cantidad %>"
-        console.log(parseInt(cantidad1) + parseInt(cantidad2))
-        return cantidad
-    }
- </script>
+ 
 
 
 <%- include("template/footer") %>
