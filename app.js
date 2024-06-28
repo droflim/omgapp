@@ -21,12 +21,16 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Conectado a MongoDB');
     // Crear índice TTL después de la conexión
-    return Inventario.createIndexes({ "createdAt": 1 }, { expireAfterSeconds: 3600 });
+    const indexOptions = { "createdAt": 1, expireAfterSeconds: 3600 };
+    return Inventario.createIndexes(indexOptions, (err) => {
+      if (err) {
+        console.error('Error al crear índice TTL:', err);
+      } else {
+        console.log('Índice TTL creado correctamente');
+      }
+    });
   })
-  .then(() => {
-    console.log('Índice TTL creado correctamente');
-  })
-  .catch(err => console.error('Error al conectar o crear índice TTL:', err));
+  .catch(err => console.error('Error al conectar a MongoDB:', err));
 
 // Definición de rutas y middleware
 app.post('/agregarMaterial', async (req, res) => {
@@ -56,13 +60,10 @@ app.get('/inventarios', async (req, res) => {
     const materiales = await Inventario.find();
     res.json(materiales);
   } catch (err) {
-    console.error(err);
+    console.error('Error al obtener materiales:', err);
     res.status(500).json({ message: 'Error al obtener materiales' });
   }
 });
-
-// Configuración de otras rutas y middleware...
-// ...
 
 // Configuración del servidor
 const PORT = 8080;
