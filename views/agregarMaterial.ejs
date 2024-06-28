@@ -4,48 +4,64 @@
 
     <h1 style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Ingreso de Materiales</h1>
     
-    <form action="agregarMaterial" class="my-2" method="POST">
-    
-        <input 
-            type="text"
-            placeholder="Ingrese nombre de Material"
-            class="form-control my-2"
-            name="nombreMaterial"
-        >
-    
-        <input 
-            type="number"
-            placeholder="Ingrese Cantidad"
-            class="form-control my-2"
-            name="Cantidad"
-        >
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            // Función para mostrar un cuadro de alerta y obtener el valor ingresado por el usuario
+            function promptAndReturn(promptText) {
+                return prompt(promptText);
+            }
 
-        <input 
-        type="number"
-        placeholder="Ingrese Precio"
-        class="form-control my-2"
-        name="Precio"
-    >
-    Fecha Automatica de ingreso
-    <input id="date" name="Fecha">
-        <button
-            type="submit"
-            class="btn btn-dark btn-block"
-        >
-            Agregar Material
-        </button>
-    
-    </form>
+            // Obtener el nombre del material
+            var nombreMaterial = promptAndReturn("Ingrese su nick:");
 
-  </div>
-  <script type="text/javascript">
-  
-    var fecha = new Date();
-var options = { year: 'numeric', month: 'long', day: 'numeric' };
+            // Obtener la cantidad
+            var cantidad = promptAndReturn("Ingrese el tema con el artista que quiere pedir");
 
-    document.getElementById('date').value = fecha.toLocaleDateString("es-ES", options)
+            // Obtener el precio
+       
 
-  </script>
+            // Crear un objeto con los datos ingresados
+            var datosMaterial = {
+                nombreMaterial: nombreMaterial,
+                cantidad: cantidad
+             
+            };
 
+            // Mostrar los datos ingresados en la consola para verificación (opcional)
+            console.log("Datos del material ingresados:", datosMaterial);
+
+            // Enviar los datos a través de POST a un servidor o backend
+            enviarDatos(datosMaterial);
+        });
+
+        // Función para enviar datos mediante AJAX o similar
+        function enviarDatos(datos) {
+            // Ejemplo de cómo podrías enviar los datos a través de fetch y AJAX
+            fetch('/agregarMaterial', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datos),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Hubo un problema al agregar el material.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+                alert('Material agregado correctamente.');
+                // Aquí podrías redirigir a otra página o realizar alguna otra acción
+            })
+            .catch(error => {
+                console.error('Error al enviar datos:', error);
+                alert('Hubo un error al agregar el material.');
+            });
+        }
+    </script>
+
+</div>
 
 <%- include("template/footer") %>

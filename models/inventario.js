@@ -4,9 +4,8 @@ const Schema = mongoose.Schema;
 const mascotasSchema = new Schema(
     {
         nombreMaterial: String,
-        Cantidad: Number,
-        Precio : Number,
-        Fecha: String
+        cantidad: String
+      
     
     }
 );
