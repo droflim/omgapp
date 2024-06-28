@@ -1,53 +1,126 @@
-<%- include("template/cabecera", {tituloWeb: 'Página Crear Nuevo Cliente'}) %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Página Crear Nuevo Cliente</title>
 
+    <!-- Estilos CSS y script de Google Maps API omitidos para brevedad -->
 
-  <div class="container">
+    <style>
+        /* Estilos CSS adicionales */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
 
-    <h1>Ingreso de Materiales</h1>
-    
-    <form action="agregarMaterial" class="my-2" method="POST">
-    
-        <input 
-            type="text"
-            placeholder="Ingrese nombre de Material"
-            class="form-control my-2"
-            name="nombreMaterial"
-        >
-    
-        <input 
-            type="number"
-            placeholder="Ingrese Cantidad"
-            class="form-control my-2"
-            name="Cantidad"
-        >
+<!-- Incluir la cabecera -->
+<%- include("template/cabecera", {tituloWeb: 'Página de Inicio Cliente'}) %>
 
-        <input 
-        type="number"
-        placeholder="Ingrese Precio"
-        class="form-control my-2"
-        name="Precio"
-    >
-    Fecha Automatica de ingreso
-    <input id="date" name="Fecha">
-        <button
-            type="submit"
-            class="btn btn-dark btn-block"
-        >
-            Agregar Material
-        </button>
-    
-    </form>
+<div class="container">
 
-  </div>
-  <script type="text/javascript">
-  
-    var fecha = new Date();
-var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    <hr>
+    <a class="btn btn-primary" href="/inventario/agregarMaterial" role="button">
+        Solicitar tema
+    </a>
+    <button id="loginBtn" class="btn btn-primary" style="display: block;" onclick="mostrarFormularioLogin()">Login DJ</button>
 
-    document.getElementById('date').value = fecha.toLocaleDateString("es-ES", options)
+    <!-- Contenedor para el inventario oculto -->
+    <div id="inventarioContainer" class="hidden">
+     
+        <div class="container-fluid">
+            <table class="table" style="background-color: white !important; border-radius: 8px; width: 50%; display:none" id="myTable">
+                <tr class="header">
+                    <th scope="col">NICK</th>
+                    <th scope="col">PETICION</th>
+                </tr>
+                <% if (arrayClientes.length > 0) { %>
+                    <% arrayClientes.forEach(inventario => { %>
+                        <tr>
+                            <td><%= inventario.nombreMaterial %></td>
+                            <td><%= inventario.cantidad %></td>
+                        </tr>
+                    <% }) %>
+                <% } %>
+            </table>
+        </div>
+    </div>
+</div>
 
-  </script>
+<!-- Script para mostrar/ocultar la sección de deficit de materiales -->
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 
+    function mostrarFormularioLogin() {
+        var usuario = prompt("Ingrese el usuario (admin):");
+        var clave = prompt("Ingrese la clave (admin123):");
 
+        if (usuario === 'admin' && clave === 'admin123') {
+            alert('Acceso concedido como administrador.');
+
+            // Mostrar el contenedor del inventario
+            var inventarioContainer = document.getElementById('inventarioContainer');
+            inventarioContainer.classList.remove('hidden');
+
+            // Mostrar detalles del inventario en un alert
+            mostrarDetallesEnAlert();
+
+            // Mostrar botón "Actualizar Lista"
+            mostrarBotonActualizar();
+        } else {
+            alert('Credenciales incorrectas. Inténtelo nuevamente.');
+        }
+    }
+
+    function mostrarDetallesEnAlert() {
+        var detalles = "Detalles del Inventario:\n";
+        var tabla = document.getElementById("myTable");
+        var filas = tabla.getElementsByTagName("tr");
+
+        for (var i = 1; i < filas.length; i++) { // Empezamos desde 1 para omitir la fila de encabezados
+            var nombreMaterial = filas[i].getElementsByTagName("td")[0].textContent.trim();
+            var cantidad = filas[i].getElementsByTagName("td")[1].textContent.trim();
+
+            detalles += "- " + nombreMaterial + ": " + cantidad + "\n";
+        }
+
+        alert(detalles);
+    }
+
+    function mostrarBotonActualizar() {
+        var actualizarBtn = document.createElement('button');
+        actualizarBtn.setAttribute('id', 'actualizarBtn');
+        actualizarBtn.setAttribute('class', 'btn btn-primary');
+        actualizarBtn.textContent = 'Actualizar Lista';
+        actualizarBtn.onclick = function() {
+            mostrarDetallesEnAlert(); // Mostrar nuevamente los detalles del inventario en un alert
+        };
+
+        // Insertar el botón antes del contenedor de la tabla
+        var contenedorTabla = document.getElementById('inventarioContainer').querySelector('.container-fluid');
+        contenedorTabla.parentNode.insertBefore(actualizarBtn, contenedorTabla.nextSibling);
+    }
+</script>
+
+<!-- Incluir el footer -->
 <%- include("template/footer") %>
 
+</body>
+</html>

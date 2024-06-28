@@ -20,14 +20,16 @@
 <div class="container">
 
     <hr>
+    <!-- Botón "Solicitar tema" -->
     <a class="btn btn-primary" href="/inventario/agregarMaterial" role="button">
         Solicitar tema
     </a>
+    
+    <!-- Botón "Login DJ" -->
     <button id="loginBtn" class="btn btn-primary" style="display: block;" onclick="mostrarFormularioLogin()">Login DJ</button>
 
     <!-- Contenedor para el inventario oculto -->
     <div id="inventarioContainer" class="hidden">
-     
         <div class="container-fluid">
             <table class="table" style="background-color: white !important; border-radius: 8px; width: 50%; display:none" id="myTable">
                 <tr class="header">
@@ -84,6 +86,10 @@
 
             // Mostrar botón "Actualizar Lista"
             mostrarBotonActualizar();
+
+            // Mostrar nuevamente los botones "Solicitar tema" y "Login DJ"
+            document.getElementById('loginBtn').style.display = 'block';
+            document.querySelector('.btn-primary[href="/inventario/agregarMaterial"]').style.display = 'inline-block';
         } else {
             alert('Credenciales incorrectas. Inténtelo nuevamente.');
         }
